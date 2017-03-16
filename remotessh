@@ -1,0 +1,15 @@
+#!/bin/bash
+for i in $(cat server.list)
+do
+echo $i
+echo '=======================================' >> font.txt
+echo $i >> font.txt
+
+echo '=======================================' >> font.txt
+
+ssh spc@$i "ls -1 /usr/share/fonts/" >> font.txt
+
+
+echo '=======================================' >> font.txt
+
+done
