@@ -7,7 +7,7 @@ echo $i >> font.txt
 
 echo '=======================================' >> font.txt
 
-ssh spc@$i "ls -1 /usr/share/fonts/" >> font.txt
+ssh username@$i "ls -1 /usr/share/fonts/" >> font.txt
 
 
 echo '=======================================' >> font.txt
