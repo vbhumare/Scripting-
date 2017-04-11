@@ -9,8 +9,8 @@ do
 
         line=`sed -n $i"p" $filename`
 
-        if [[ "$line" = *"bonzai.ad"* ]]; then
+        if [[ "$line" = *"xyz.ad"* ]]; then
                 bonzai=$i's/'$line'/Found '$line'/'
-                sed -i "$bonzai" $filename
+                sed -i "$xyz" $filename
         fi
 done
