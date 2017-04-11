@@ -1,0 +1,60 @@
+#!/bin/bash
+echo "==========================="
+
+echo "Host : `hostname | cut -d'.' -f1`"
+
+echo "==========================="
+
+##Memory is in MB
+memory=`free -m | awk '/buffers\/cache/' | awk '{print $4}'`
+#echo $memory GB
+cpu_usage=`top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}' | cut -c 1`
+#cpu_usage=`top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}'`
+#echo $cpu_usage
+
+echo "----Memory status-----"
+echo "==========================="
+if [ $memory -gt 700 ]
+then
+echo "Memory  Status"
+ echo "Warnig"
+mutt -s "Memory Status (Warning): $memory" -- xyz@gmail.com < /dev/null
+else
+echo "OK"
+fi
+
+if [ $memory -gt 900 ]
+then
+echo "Memory Status"
+echo "Critical"
+mutt -s "Memory Status is critical: $memory" -- xyz@gmail.com < /dev/null
+else
+echo "OK"
+fi
+
+echo "==========================="
+
+echo "----CPU Usage Status----"
+
+echo "==========================="
+
+if [ $cpu_usage -gt 7 ]
+then
+echo "cpu_usage  Status"
+ echo "Warnig"
+mutt -s "cpu usage Status (Warning): $cpu_usage" -- xyz@gmail.com < /dev/null
+else
+echo "OK"
+fi
+
+if [ $cpu_usage -gt 8 ]
+then
+echo "cpu_usage Status"
+echo "Critical"
+mutt -s "cpu usage Status is critical: $cpu_usage" -- xyz@gmail.com < /dev/null
+else
+echo "OK"
+fi
+
+echo "==========================="
+
