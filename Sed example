@@ -1,0 +1,16 @@
+#!/bin/bash
+filename="/tmp/file.txt"
+
+count=`awk 'END {print NR}' $filename`
+incrment=50
+for ((i=50;i<=$count; i += $incrment));
+do
+  # echo $i
+
+        line=`sed -n $i"p" $filename`
+
+        if [[ "$line" = *"bonzai.ad"* ]]; then
+                bonzai=$i's/'$line'/Found '$line'/'
+                sed -i "$bonzai" $filename
+        fi
+done
