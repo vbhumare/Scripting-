@@ -1,0 +1,39 @@
+#!/bin/bash
+emailaddress_warning="vbhumare@gmail.com"
+emailaddress_critical="vbhumare@gmail.com"
+
+current_load_status=`/usr/local/nagios/libexec/check_load -w 0,10,5 -c 0,25,20 | awk '{print $1}'`
+
+current_load=`/usr/local/nagios/libexec/check_load -w 0,10,5 -c 0,25,20 | awk '{print $5, $6 ,$7}' | sed 's/|load.*//'`
+
+case $current_load_status in 
+[OK]*)
+echo "OK - Current Load Average is $current_load"
+#mail -s "Load Average: OK"  -- $emailaddress_warning < /dev/null
+echo "Job finished!"
+
+exit 0
+;;
+
+[WARNING]*0)
+echo "WARNING - Current Load Average is $current_load"
+#mail -s "Load Average: WARNING"  -- $emailaddress_warning < /dev/null
+echo "Job finished!"
+exit 1
+;;
+
+[CRITICAL]*)
+
+echo "CRITICAL - Current Load Average is $current_load"
+#mail -s "Load Average: CRITICAL"  -- $emailaddress_critical < /dev/null
+echo "Job finished!"
+exit 2
+;;
+
+*)
+echo "UNKNOWN - Current Load Average is $current_load"
+#mail -s "Unknown Status"  -- $emailaddress_warning < /dev/null
+exit 3
+;;
+esac
+
