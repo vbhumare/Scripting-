@@ -1,0 +1,39 @@
+#!/bin/bash
+emailaddress_warning="vbhumare@gmail.com"
+emailaddress_critical="vbhumare@gmail.com"
+disk=/opt
+echo $disk
+used_status=`/usr/local/nagios/libexec/check_disk -w 20% -c 10% -p $disk | awk '{print $2}'`
+used_space=`/usr/local/nagios/libexec/check_disk -w 20% -c 10% -p $disk  | awk '{print $7,$8}'`
+
+case $used_status in 
+[OK]*)
+echo "OK - $used_status of disk space used."
+#mail -s "Disk Space OK"  -- $emailaddress_warning < /dev/null
+echo "Job finished!"
+
+exit 0
+;;
+
+[WARNING]*0)
+echo "WARNING - $used_status of disk space used."
+#mail -s "Disk Space WARNING"  -- $emailaddress_warning < /dev/null
+echo "Job finished!"
+exit 1
+;;
+
+[CRITICAL]*)
+
+echo "CRITICAL - $used_status of disk space used."
+#mail -s "Disk Space CRITICAL"  -- $emailaddress_critical < /dev/null
+echo "Job finished!"
+exit 2
+;;
+
+*)
+echo "UNKNOWN - $used_status% of disk space used."
+#mail -s "Unknown Status"  -- $emailaddress_warning < /dev/null
+exit 3
+;;
+esac
+
