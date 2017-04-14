@@ -1,0 +1,22 @@
+#!/bin/bash
+
+declare -a arr=("abc" "xyz")
+pos=0
+
+host='192.168.56.10 192.168.56.11'
+for i in $host
+do
+
+echo $i = ${arr[$pos]}
+sqlplus -S $i/$i <<EOF
+
+spool $i.log
+
+update table_name set name = '${arr[$pos]}' where id = '10';
+
+commit;
+
+EOF
+
+let "pos=pos+1"
+done
