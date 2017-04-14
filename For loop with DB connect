@@ -1,0 +1,16 @@
+#!/bin/bash
+
+for i in $(cat file.txt)
+do
+echo $i
+
+sqlplus -S schema_name/schema_name <<EOF
+spool $i.log
+
+update table_name set abc = '2' where id = '12';
+
+commit;
+
+EOF
+
+done
