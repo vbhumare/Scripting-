@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+###Mysql Dump Script###
+reportDate=$(date +"%Y%m%d")
+mysqldump -u root -pPassword dbname > /opt/Backup/dbname_$reportDate.sql
+cd /opt/Backup
+gzip dbname_$reportDate.sql
+find /opt/Backup/dbname_*  -mtime +30 -exec rm {} \;
