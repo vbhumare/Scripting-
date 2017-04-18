@@ -1,0 +1,5 @@
+ssh -A  $user@$i 'bash -s' <<'ENDSSH'
+host=`hostname`
+echo "server name is $host"
+ENDSSH
+done
