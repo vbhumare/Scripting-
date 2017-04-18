@@ -1,3 +1,6 @@
+#!/bin/bash
+for i in $(cat server.list)
+do
 ssh -A  $user@$i 'bash -s' <<'ENDSSH'
 host=`hostname`
 echo "server name is $host"
