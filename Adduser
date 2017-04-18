@@ -1,5 +1,4 @@
- #!/bin/bash
-
+#!/bin/bash
 adduser()
 {
 echo -n "Enter user name "
